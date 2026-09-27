@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Django
+*.sqlite3
+.env
+.env.*
+
+# Node
+node_modules/
+**/node_modules/
+
+# Build
+dist/
+build/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Scraped/downloaded HTML resources
+backend/media/banners/*.html
+backend/media/banners/*_files/

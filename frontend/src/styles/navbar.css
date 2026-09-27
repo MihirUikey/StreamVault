@@ -1,0 +1,81 @@
+.navbar {
+  height: 80px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  padding: 0 4%;
+  box-sizing: border-box;
+  gap: 40px;
+}
+
+.logo {
+  color: #e50914;
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.search-form input {
+  width: 260px;
+  height: 38px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  background: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+  font-size: 15px;
+}
+
+.search-form input::placeholder {
+  color: #aaa;
+}
+
+.search-form button {
+  height: 38px;
+  width: 45px;
+  border: 1px solid #555;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  background: #e50914;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.search-form button:hover {
+  background: #f40612;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  color: #e50914;
+}

@@ -1,0 +1,44 @@
+.movie-card {
+  display: block;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.movie-poster {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.movie-poster img {
+  display: block;
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover .movie-poster img {
+  transform: scale(1.05);
+}
+
+.movie-info {
+  padding: 10px 2px 0;
+}
+
+.movie-info h3 {
+  margin: 0 0 5px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.movie-info p {
+  margin: 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.movie-info span {
+  margin: 0 4px;
+}

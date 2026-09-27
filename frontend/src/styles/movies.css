@@ -1,0 +1,107 @@
+.search-results-page {
+  min-height: 100vh;
+  padding: 50px 5%;
+  background: #111;
+  color: white;
+}
+
+.search-results-page h1 {
+  margin: 0 0 10px;
+  font-size: 40px;
+}
+
+.search-results-page > p {
+  margin: 0 0 40px;
+  color: #aaa;
+  font-size: 18px;
+}
+
+.search-results-page .movie-row {
+  padding: 0;
+}
+
+.search-results-page .movie-row h1 {
+  display: none;
+}
+
+.search-results-page .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 220px);
+  gap: 35px 24px;
+  overflow: visible;
+  padding: 0;
+  justify-content: start;
+}
+
+.search-results-page .row .movie-card {
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  flex: none;
+}
+
+.search-results-page .row .movie-poster {
+  width: 220px;
+  height: 330px;
+}
+
+.search-results-page .row .movie-poster img {
+  display: block;
+  width: 220px;
+  height: 330px;
+  object-fit: cover;
+}
+
+.search-results-page .row .movie-info {
+  width: 220px;
+  padding: 10px 2px 0;
+}
+
+.search-results-page .row .movie-info p {
+  white-space: nowrap;
+}
+.tv-show-card {
+  display: block;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.tv-show-poster {
+  width: 100%;
+  height: 330px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.tv-show-poster img {
+  display: block;
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.tv-show-card:hover .tv-show-poster img {
+  transform: scale(1.05);
+}
+
+.tv-show-info {
+  padding: 10px 2px 0;
+}
+
+.tv-show-info h3 {
+  margin: 0 0 5px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.tv-show-info p {
+  margin: 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.tv-show-info span {
+  margin: 0 4px;
+}

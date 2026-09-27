@@ -1,0 +1,111 @@
+.movie-details {
+  min-height: 100vh;
+  background: #000;
+  color: white;
+}
+
+.movie-backdrop {
+  position: relative;
+  min-height: 80vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+.movie-backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, #000 5%, transparent 60%),
+    linear-gradient(to right, #000 0%, transparent 70%);
+}
+
+.movie-info {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+
+  width: 100%;
+  padding: 80px;
+  box-sizing: border-box;
+}
+
+.movie-poster {
+  width: 260px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.movie-content {
+  max-width: 700px;
+}
+
+.movie-content h1 {
+  font-size: 56px;
+  margin: 0 0 20px;
+}
+
+.movie-meta {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.movie-description {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.movie-genres {
+  display: flex;
+  gap: 10px;
+  margin: 25px 0;
+}
+
+.movie-genres span {
+  padding: 6px 12px;
+  border: 1px solid #555;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.movie-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.play-button,
+.list-button {
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.play-button {
+  background: white;
+  color: black;
+}
+
+.list-button {
+  background: #555;
+  color: white;
+}
+
+.movie-details-loading {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #000;
+  color: white;
+  font-size: 24px;
+}

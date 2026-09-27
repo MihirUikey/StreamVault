@@ -1,0 +1,46 @@
+.movie-row {
+  padding: 40px;
+}
+
+.movie-row h1 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 15px;
+}
+
+.row .movie-card {
+  flex: 0 0 220px;
+  width: 220px;
+}
+
+.row .movie-poster {
+  width: 220px;
+  height: 330px;
+}
+
+.row .movie-poster img {
+  width: 220px;
+  height: 330px;
+  object-fit: cover;
+}
+
+.row .movie-info {
+  width: 220px;
+  padding: 10px 2px 0;
+}
+
+.row .movie-info h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.row .movie-info p {
+  margin: 0;
+  font-size: 14px;
+}

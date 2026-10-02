@@ -105,3 +105,54 @@
 .tv-show-info span {
   margin: 0 4px;
 }
+/* =========================
+   My List
+   ========================= */
+
+.my-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 220px);
+  gap: 35px 24px;
+  padding: 20px 0;
+  justify-content: start;
+}
+
+.my-list-grid .movie-card,
+.my-list-grid .tv-show-card {
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+}
+
+.my-list-grid .movie-poster,
+.my-list-grid .tv-show-poster {
+  width: 220px;
+  height: 330px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.my-list-grid .movie-poster img,
+.my-list-grid .tv-show-poster img {
+  display: block;
+  width: 220px;
+  height: 330px;
+  object-fit: cover;
+}
+
+.my-list-grid .movie-info,
+.my-list-grid .tv-show-info {
+  width: 220px;
+  padding: 10px 2px 0;
+  box-sizing: border-box;
+}
+
+.my-list-grid .movie-info h3,
+.my-list-grid .tv-show-info h3 {
+  margin: 0 0 5px;
+}
+
+.my-list-grid .movie-info p,
+.my-list-grid .tv-show-info p {
+  margin: 0;
+}

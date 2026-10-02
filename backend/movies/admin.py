@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Movie, Genre, Collection, TVShow
+from .models import Movie, Genre, Collection, TVShow, Watchlist
 
 
 # Register your models here.
@@ -49,3 +49,9 @@ class TVShowAdmin(admin.ModelAdmin):
         "is_active",
     )
     prepopulated_fields = {"slug": ("title",)}
+
+
+@admin.register(Watchlist)
+class WatchlistAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "movie", "tv_show", "created_at")
+    list_filter = ("created_at",)

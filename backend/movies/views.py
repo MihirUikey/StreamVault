@@ -1,11 +1,17 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
-from .models import Movie, Genre, TVShow
-from .serializers import MovieSerializer, GenreSerializer, TVShowSerializer
+from .models import Movie, Genre, TVShow, Watchlist
+from .serializers import (
+    MovieSerializer,
+    GenreSerializer,
+    TVShowSerializer,
+    WatchlistSerializer,
+)
 
 
 @api_view(["GET"])
@@ -95,3 +101,88 @@ def tv_show_detail(request, slug):
     serializer = TVShowSerializer(tv_show)
 
     return Response(serializer.data)
+
+
+@api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
+def watchlist(request):
+    if request.method == "GET":
+        items = Watchlist.objects.filter(user=request.user).select_related(
+            "movie", "tv_show"
+        )
+
+        serializer = WatchlistSerializer(items, many=True)
+        return Response(serializer.data)
+
+    movie_id = request.data.get("movie")
+    tv_show_id = request.data.get("tv_show")
+
+    if movie_id and tv_show_id:
+        return Response(
+            {"detail": "Provide either movie or tv_show, not both."},
+            status=400,
+        )
+
+    if not movie_id and not tv_show_id:
+        return Response(
+            {"detail": "Provide either movie or tv_show."},
+            status=400,
+        )
+
+    if movie_id:
+        movie = get_object_or_404(
+            Movie,
+            id=movie_id,
+            is_active=True,
+        )
+
+        if Watchlist.objects.filter(
+            user=request.user,
+            movie=movie,
+        ).exists():
+            return Response(
+                {"detail": "Movie is already in My List."},
+                status=400,
+            )
+        item = Watchlist.objects.create(
+            user=request.user,
+            movie=movie,
+        )
+
+    else:
+        tv_show = get_object_or_404(
+            TVShow,
+            id=tv_show_id,
+            is_active=True,
+        )
+
+        if Watchlist.objects.filter(
+            user=request.user,
+            tv_show=tv_show,
+        ).exists():
+            return Response(
+                {"detail": "TV Show is already in My List."},
+                status=400,
+            )
+
+        item = Watchlist.objects.create(
+            user=request.user,
+            tv_show=tv_show,
+        )
+
+    serializer = WatchlistSerializer(item)
+    return Response(serializer.data, status=201)
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def watchlist_delete(request, item_id):
+    item = get_object_or_404(
+        Watchlist,
+        id=item_id,
+        user=request.user,
+    )
+
+    item.delete()
+
+    return Response(status=204)

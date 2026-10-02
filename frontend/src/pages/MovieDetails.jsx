@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
-
+import { useAuth } from "../context/AuthContext";
 import "../styles/moviedetails.css";
 
 function MovieDetails() {
   const { slug } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const [movie, setMovie] = useState(null);
+  const [myListItem, setMyListItem] = useState(null);
+
   const [loading, setLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(false);
 
   useEffect(() => {
     async function fetchMovie() {
@@ -25,6 +29,74 @@ function MovieDetails() {
 
     fetchMovie();
   }, [slug]);
+
+  useEffect(() => {
+    async function checkMyList() {
+      if (!isAuthenticated || !movie) {
+        setMyListItem(null);
+        return;
+      }
+
+      try {
+        const response = await api.get("movies/my-list/", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+
+        const existingItem = response.data.find(
+          (item) => item.movie && item.movie.id === movie.id,
+        );
+
+        setMyListItem(existingItem || null);
+      } catch (error) {
+        console.error("Failed to check My List:", error);
+      }
+    }
+
+    checkMyList();
+  }, [movie, isAuthenticated]);
+
+  async function handleMyList() {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+
+    setListLoading(true);
+
+    try {
+      if (myListItem) {
+        await api.delete(`movies/my-list/${myListItem.id}/`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+
+        setMyListItem(null);
+      } else {
+        const response = await api.post(
+          "movies/my-list/",
+          { movie: movie.id },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+          },
+        );
+
+        setMyListItem(response.data);
+      }
+    } catch (error) {
+      console.error("Failed to update My List:", error);
+
+      if (error.response?.data?.detail) {
+        console.error(error.response.data.detail);
+      }
+    } finally {
+      setListLoading(false);
+    }
+  }
 
   if (loading) {
     return <div className="movie-details-loading">Loading...</div>;
@@ -72,7 +144,17 @@ function MovieDetails() {
             <div className="movie-actions">
               <button className="play-button">▶ Play</button>
 
-              <button className="list-button">+ My List</button>
+              <button
+                className="list-button"
+                onClick={handleMyList}
+                disabled={listLoading}
+              >
+                {listLoading
+                  ? "Updating..."
+                  : myListItem
+                    ? "✓ In My List"
+                    : "+ My List"}
+              </button>
             </div>
           </div>
         </div>

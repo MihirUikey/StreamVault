@@ -87,3 +87,52 @@ class TVShow(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Watchlist(models.Model):
+    user = models.ForeignKey(
+        "auth.User",
+        on_delete=models.CASCADE,
+        related_name="watchlist",
+    )
+
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="watchlist_items",
+    )
+
+    tv_show = models.ForeignKey(
+        TVShow,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="watchlist_items",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(movie__isnull=False, tv_show__isnull=True)
+                    | models.Q(movie__isnull=True, tv_show__isnull=False)
+                ),
+                name="watchlist_exactly_one_content",
+            ),
+            models.UniqueConstraint(
+                fields=["user", "movie"],
+                name="unique_user_movie_watchlist",
+            ),
+            models.UniqueConstraint(
+                fields=["user", "tv_show"],
+                name="unique_user_tv_show_watchlist",
+            ),
+        ]
+
+    def __str__(self):
+        if self.movie:
+            return f"{self.user.username} -{self.movie.title}"
+        return f"{self.user.username} - {self.tv_show.title}"

@@ -6,7 +6,7 @@ import TVShows from "./pages/TVShows";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import MyList from "./pages/MyList";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
@@ -15,7 +15,14 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/tv-shows" element={<TVShows />} />
         <Route path="/movies/:slug" element={<MovieDetails />} />
-        <Route path="/my-list" element={<MyList />} />
+        <Route
+          path="/my-list"
+          element={
+            <ProtectedRoute>
+              <MyList />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>

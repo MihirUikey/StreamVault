@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
 
 import "../styles/auth.css";
 
 function Login() {
   const navigate = useNavigate();
-
+  const { setIsAuthenticated } = useAuth();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -36,6 +36,8 @@ function Login() {
 
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
+
+      setIsAuthenticated(true);
 
       navigate("/");
     } catch (error) {

@@ -14,11 +14,7 @@ function MyList() {
   useEffect(() => {
     async function fetchMyList() {
       try {
-        const response = await api.get("movies/my-list/", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        });
+        const response = await api.get("movies/my-list/");
 
         setItems(response.data);
       } catch (error) {

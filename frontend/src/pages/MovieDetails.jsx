@@ -38,11 +38,7 @@ function MovieDetails() {
       }
 
       try {
-        const response = await api.get("movies/my-list/", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        });
+        const response = await api.get("movies/my-list/");
 
         const existingItem = response.data.find(
           (item) => item.movie && item.movie.id === movie.id,
@@ -67,23 +63,11 @@ function MovieDetails() {
 
     try {
       if (myListItem) {
-        await api.delete(`movies/my-list/${myListItem.id}/`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        });
+        await api.delete(`movies/my-list/${myListItem.id}/`);
 
         setMyListItem(null);
       } else {
-        const response = await api.post(
-          "movies/my-list/",
-          { movie: movie.id },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-          },
-        );
+        const response = await api.post("movies/my-list/", { movie: movie.id });
 
         setMyListItem(response.data);
       }

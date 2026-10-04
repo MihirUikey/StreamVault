@@ -35,11 +35,7 @@ function TVShowDetails() {
         return;
       }
       try {
-        const response = await api.get("movies/my-list/", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        });
+        const response = await api.get("movies/my-list/");
         const existingItem = response.data.find(
           (item) => item.tv_show && item.tv_show.id === tvShow.id,
         );
@@ -59,24 +55,12 @@ function TVShowDetails() {
     setListLoading(true);
     try {
       if (myListItem) {
-        await api.delete(`movies/my-list/${myListItem.id}/`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_toekn")}`,
-          },
-        });
+        await api.delete(`movies/my-list/${myListItem.id}/`);
         setMyListItem(null);
       } else {
-        const response = await api.post(
-          "movies/my-list/",
-          {
-            tv_show: tvShow.id,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-          },
-        );
+        const response = await api.post("movies/my-list/", {
+          tv_show: tvShow.id,
+        });
         setMyListItem(response.data);
       }
     } catch (error) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
 
@@ -7,6 +7,7 @@ import "../styles/auth.css";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { setIsAuthenticated } = useAuth();
   const [formData, setFormData] = useState({
     username: "",
@@ -39,7 +40,8 @@ function Login() {
 
       setIsAuthenticated(true);
 
-      navigate("/");
+      const destination = location.state?.from || "/";
+      navigate(destination, { replace: true });
     } catch (error) {
       console.error("Login failed:", error);
 

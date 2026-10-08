@@ -96,22 +96,18 @@ function TVShowDetails() {
 
           <div className="movie-content">
             <h1>{tvShow.title}</h1>
-
             <div className="movie-meta">
               <span>⭐ {tvShow.rating}</span>
               <span>{tvShow.release_year}</span>
               <span>{tvShow.maturity_rating}</span>
               <span>{tvShow.language}</span>
             </div>
-
             <p className="movie-description">{tvShow.description}</p>
-
             <div className="movie-genres">
               {tvShow.genres.map((genre) => (
                 <span key={genre}>{genre}</span>
               ))}
             </div>
-
             <div className="movie-actions">
               <button className="play-button">▶ Play</button>
 
@@ -127,6 +123,7 @@ function TVShowDetails() {
                     : "+ My List"}
               </button>
             </div>
+            x
           </div>
         </div>
       </div>

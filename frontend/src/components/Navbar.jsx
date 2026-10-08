@@ -21,7 +21,10 @@ function Navbar({ onSearch }) {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/login", {
+      replace: true,
+      state: null,
+    });
   };
 
   return (
